@@ -3,6 +3,9 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stddef.h>
+
+stack_t *stack = NULL;
 
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
@@ -33,5 +36,14 @@ typedef struct instruction_s
         char *opcode;
         void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
+
+/* function prototypes */
+void push(stack_t **stack, int value);
+void pall(stack_t **stack);
+void pint(stack_t **stack);
+void pop(stack_t **stack);
+void swap(stack_t **stack);
+void add(stack_t **stack);
+void nop(stack_t **stack);
 
 #endif/* MONTY_H */
