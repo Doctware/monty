@@ -7,10 +7,7 @@
 #include <sys/types.h>
 #include <ctype.h>
 
-<<<<<<< HEAD
-=======
 #define LIMITER " \n"
->>>>>>> a27de31fa722514549c419ce6a7a8318a92bd28d
 
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)

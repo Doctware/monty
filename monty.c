@@ -10,19 +10,16 @@
 
 int main(int argc, char *argv[])
 {
-<<<<<<< HEAD
 	/* FILE *file; */
 	char *line = NULL;
 	size_t len = 0;
 	unsigned int line_number = 0;
-=======
 	char *tokens, *lineptr = NULL;
 	unsigned int counter = 0;
 	stack_t *head = NULL;
 	ssize_t read_file;
 	size_t bufsize;
 	FILE *fl;
->>>>>>> a27de31fa722514549c419ce6a7a8318a92bd28d
 
 	if (argc != 2)
 	{
