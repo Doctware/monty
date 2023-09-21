@@ -1,6 +1,3 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 #include "monty.h"
 
 /**
@@ -10,11 +7,15 @@
  *
  * Return: Return value indicating success or failure
  */
+
 int main(int argc, char *argv[])
 {
-	char *line = NULL;
-	size_t len = 0;
-	unsigned int line_number = 0;
+	char *tokens, *lineptr = NULL;
+	unsigned int counter = 0;
+	stack_t *head = NULL;
+	ssize_t read_file;
+	size_t bufsize;
+	FILE *fl;
 
 	if (argc != 2)
 	{
@@ -22,19 +23,27 @@ int main(int argc, char *argv[])
 		exit(EXIT_FAILURE);
 	}
 
-	FILE *file = fopen(argv[1], "r");
-
-	if (!file)
+	fl = fopen(argv[1], "r");
+	if (!fl)
 	{
 		fprintf(stderr, "Error: Can't open file %s\n", argv[1]);
 		exit(EXIT_FAILURE);
 	}
 
-	while (getline(&line, &len, file) != -1)
+	while ((read_file = getline(&lineptr, &bufsize, fl)) != -1)
 	{
-		line_number++;
+		tokens = strtok(lineptr, LIMITER);
+		counter++;
+		if (tokens)
+			select_func(&head, tokens, counter);
+
+		else if (!tokens)
+			continue;
+
 	}
-	free(line);
-	fclose(file);
-	return (EXIT_SUCCESS);
+	if (lineptr)
+		free(lineptr);
+	pop_free(&head);
+	fclose(fl);
+	exit(EXIT_SUCCESS);
 }
