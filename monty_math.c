@@ -74,7 +74,7 @@ void mul(stack_t **head, unsigned int counter)
  * @counter: Number of the line.
  * Return: Nothig
  **/
-void _div(stack_t **head, unsigned int counter)
+void div(stack_t **head, unsigned int counter)
 {
 	if (!head || !(*head) || !(*head)->next)
 	{
