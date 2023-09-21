@@ -3,8 +3,14 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <stddef.h>
+#include <string.h>
+#include <sys/types.h>
+#include <ctype.h>
 
+<<<<<<< HEAD
+=======
+#define LIMITER " \n"
+>>>>>>> a27de31fa722514549c419ce6a7a8318a92bd28d
 
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
@@ -37,12 +43,21 @@ typedef struct instruction_s
 } instruction_t;
 
 /* function prototypes */
-void push(stack_t **stack, int value);
-void pall(stack_t **stack);
-void pint(stack_t **stack);
-void pop(stack_t **stack);
-void swap(stack_t **stack);
-void add(stack_t **stack);
-void nop(stack_t **stack);
+void pall(stack_t **head, unsigned int counter);
+void push(stack_t **head, unsigned int counter);
+void pint(stack_t **head, unsigned int counter);
+void swap(stack_t **head, unsigned int counter);
+void pop(stack_t **head, unsigned int counter);
+void nop(stack_t **head, unsigned int counter);
+void add(stack_t **head, unsigned int counter);
+void sub(stack_t **head, unsigned int counter);
+void mul(stack_t **head, unsigned int counter);
+void _div(stack_t **head, unsigned int counter);
+
+/* Selector*/
+void select_func(stack_t **head, char *token, unsigned int counter);
+
+/* Free memory */
+void pop_free(stack_t **head);
 
 #endif/* MONTY_H */

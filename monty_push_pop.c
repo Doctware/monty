@@ -2,47 +2,111 @@
 
 /**
  * push - Pushes an element onto the stack
- * @stack: A pointer to the top of the stack
- * @value: The integer value to push onto the stack
+ * @head: The integer value to push onto the stack
+ * @counter: integer counter
+ * Return: none
  */
-void push(stack_t **stack, int value)
+
+void push(stack_t **head, unsigned int counter)
 {
-	/* create a new stack node */
-	stack_t *new_node = malloc(sizeof(stack_t));
+	stack_t *new_node = NULL;
+	int cont = 0;
+	char *verify = strtok(NULL, LIMITER);
 
+	if (!verify)/* if <int> is not an int or if no argument given to push */
+	{
+		fprintf(stderr, "L%u: usage: push integer\n", counter);
+		exit(EXIT_FAILURE);
+	}
 
-	if (!new_node)
+	while (verify[cont] != '\0')
+	{
+		if (!isdigit(verify[cont]) && verify[cont] != '-')
+		{
+			fprintf(stderr, "L%u: usage: push integer\n", counter);
+			exit(EXIT_FAILURE);
+		}
+		cont++;
+	}
+	new_node = malloc(sizeof(stack_t));
+	if (new_node == NULL)
 	{
 		fprintf(stderr, "Error: malloc failed\n");
 		exit(EXIT_FAILURE);
 	}
 
-	new_node->n = value;
+	new_node->n = atoi(verify);
 	new_node->prev = NULL;
 
-	if (*stack)
+	if (*head)
 	{
-		new_node->next = *stack;
-		(*stack)->prev = new_node;
+		new_node->next = (*head);
+		(*head)->prev = new_node;
+		(*head) = new_node;
 	}
 	else
 	{
+		(*head) = new_node;
 		new_node->next = NULL;
 	}
-	*stack = new_node;
 }
 
 /**
- * pall - prints all the values on the stack
- * @stack: A pinter to the top of the stack
- */
-void pall(stack_t **stack)
-{
-	stack_t *current = *stack;
+ * pall - Prints all the values on the stack,
+ * starting from the top of the stack.
+ * @head: Head of the list
+ * @counter: Number of the line
+ * Return: void
+ **/
 
-	while (current)
+void pall(stack_t **head, unsigned int counter __attribute__((unused)))
+{
+	/* Transfer values to not modify original list */
+	stack_t *tmp = *head;
+
+	while (tmp)
 	{
-		printf("%d\n", current->n);
-		current = current->next;
+		printf("%d\n", tmp->n);
+		tmp = tmp->next;
 	}
+}
+
+/**
+ * pint - prints the value at the top of the stack,
+ * followed by a new line.
+ * @head: Head of the list
+ * @counter: Number of the line
+ * Return: vvoid
+ **/
+
+void pint(stack_t **head, unsigned int counter)
+{
+	/* Verify if the stack is empty */
+	if (head == NULL || *head == NULL)
+	{
+		fprintf(stderr, "L%u: can't pint, stack empty\n", counter);
+		exit(EXIT_FAILURE);
+	}
+	printf("%d\n", (*head)->n);
+}
+
+/**
+ * pop - Removes the top element of the stack.
+ * @head: Head of the list
+ * @counter: Number of the line
+ * Return: void
+ **/
+void pop(stack_t **head, unsigned int counter)
+{
+	stack_t *new_list = *head;
+
+	/* Verify if the stack is empty */
+	if (head == NULL || *head == NULL)
+	{
+		fprintf(stderr, "L%u: can't pop an empty stack\n", counter);
+		exit(EXIT_FAILURE);
+	}
+	new_list = (*head)->next;
+	free(*head);
+	*head = new_list;
 }
