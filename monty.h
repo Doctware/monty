@@ -9,6 +9,7 @@
 
 #define LIMITER " \n"
 
+
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
  * @n: integer
@@ -50,6 +51,11 @@ void add(stack_t **head, unsigned int counter);
 void sub(stack_t **head, unsigned int counter);
 void mul(stack_t **head, unsigned int counter);
 void _div(stack_t **head, unsigned int counter);
+void mod(stack_t **head, unsigned int line_number);
+void pchar(stack_t **head, unsigned int line_number);
+void pstr(stack_t **head, unsigned int line_number);
+void rot1(stack_t **head, unsigned int line_number);
+void rotr(stack_t **head, unsigned int line_number);
 
 /* Selector*/
 void select_func(stack_t **head, char *token, unsigned int counter);
@@ -57,4 +63,7 @@ void select_func(stack_t **head, char *token, unsigned int counter);
 /* Free memory */
 void pop_free(stack_t **head);
 
-#endif/* MONTY_H */
+/* Set mode functions */
+void set_stack_mode(stack_t **stack, int *mode);
+void set_queue_mode(stack_t **stack, int *mode);
+#endif /* _MONTY_H_ */

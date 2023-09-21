@@ -1,4 +1,7 @@
 #include "monty.h"
+#include <stdio.h>
+
+#define MAX_LINE_LENGTH 1024
 
 /**
  * main - The main
@@ -10,16 +13,17 @@
 
 int main(int argc, char *argv[])
 {
-	/* FILE *file; */
-	char *line = NULL;
-	size_t len = 0;
+	/*char *line = NULL;
+	size_t len = 0;*/
+	char line[MAX_LINE_LENGTH];
 	unsigned int line_number = 0;
 	char *tokens, *lineptr = NULL;
 	unsigned int counter = 0;
 	stack_t *head = NULL;
-	ssize_t read_file;
-	size_t bufsize;
+	/*ssize_t read_file;
+	size_t bufsize;*/
 	FILE *fl;
+	/*int mode = 0;*/
 
 	if (argc != 2)
 	{
@@ -34,8 +38,12 @@ int main(int argc, char *argv[])
 		exit(EXIT_FAILURE);
 	}
 
-	while ((read_file = getline(&lineptr, &bufsize, fl)) != -1)
+	for (line_number = 1; fgets(line, sizeof(line), fl) != NULL; line_number++)
 	{
+		
+		if (line[0] == '#')
+			continue;
+
 		tokens = strtok(lineptr, LIMITER);
 		counter++;
 		if (tokens)
@@ -51,3 +59,15 @@ int main(int argc, char *argv[])
 	fclose(fl);
 	exit(EXIT_SUCCESS);
 }
+
+/*void select_func(stack_t **head, char *token, unsigned int counter, int *mode)
+{
+	else if (strcmp(token, "stack") == 0)
+	{
+		set_stack_mode(head, mode);
+	}
+	else if (strcmp(token, "queue") == 0)
+	{
+		set_queue_mode(head, mode);
+	}
+}*/
